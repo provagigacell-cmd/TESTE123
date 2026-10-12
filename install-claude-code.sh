@@ -44,7 +44,8 @@ ensure_brew() {
   fi
   if ! has brew; then
     info "Instalando Homebrew..."
-    NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" || return 1
+    warn "O instalador do Homebrew pode pedir a senha do seu Mac (usuário administrador)."
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" </dev/tty || return 1
     for p in /opt/homebrew/bin/brew /usr/local/bin/brew; do
       [ -x "$p" ] && eval "$("$p" shellenv)" && persist_line "eval \"\$($p shellenv)\"" && break
     done
